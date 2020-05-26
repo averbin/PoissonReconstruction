@@ -7,3 +7,9 @@ add_test( PoissonReconstructionTest
   5
   temp.vtp
 )
+
+message(STATUS "vtk libs : ${VTK_LIBRARIES} : ${VTK_BINARY_DIR}")
+add_custom_command(TARGET PoissonReconstruction POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "D:/programming/Lib/VTK-9.0.0/build/bin/Debug/"
+        $<TARGET_FILE_DIR:PoissonReconstruction>)

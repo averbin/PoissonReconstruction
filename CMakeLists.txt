@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.0)
 
 project(PoissonReconstruction)
 
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 find_package(VTK REQUIRED)
 include(${VTK_USE_FILE})
 
@@ -50,3 +53,18 @@ if( BUILD_DOCUMENTATION )
   add_subdirectory( documentation )
 endif( BUILD_DOCUMENTATION )
 
+target_compile_features(vtkPoissonReconstruction PUBLIC cxx_std_14)
+set_target_properties(vtkPoissonReconstruction PROPERTIES
+    CXX_STANDARD 14
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
+
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++14 /Zc:__cplusplus")
+endif()
+
+if (MSVC)
+    target_compile_options(vtkPoissonReconstruction INTERFACE "/Zc:__cplusplus")
+endif()
+message("Supported features = ${CMAKE_CXX_COMPILE_FEATURES}")
